@@ -17,7 +17,6 @@ function getPlayerChoice() {
     let input;
     while (true) {
         input = prompt("Your choice: Rock, Paper, Scissors").toLowerCase();
-        console.log(input)
         if (input === "rock" || input === "paper" || input === "scissors") {
             return input[0].toUpperCase() + input.substring(1);
         }
@@ -25,23 +24,59 @@ function getPlayerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    if (playerSelection === computerSelection) {
-        return "Tie!"
+    /*
+    Play a round of rock paper scissors and determine a potential winner
+    return 0 if its a draw, return 1 if player wins, return 2 if the computer wins
+    */
+    let playerSelectionCapitalized;
+    playerSelectionCapitalized = playerSelection[0].toUpperCase() + playerSelection.substring(1).toLowerCase()
+    if (playerSelectionCapitalized === computerSelection) {
+        console.log("Tie!");
+        return 0;
     }
-    else if (playerSelection === "Rock" && computerSelection === "Paper") {
-        return `You Lose! ${computerSelection} beats ${playerSelection}.`
+    else if (playerSelectionCapitalized === "Rock" && computerSelection === "Paper") {
+        console.log(`You Lose! ${computerSelection} beats ${playerSelection}.`);
+        return 2;
     }
-    else if (playerSelection === "Paper" && computerSelection === "Scissors") {
-        return `You Lose! ${computerSelection} beats ${playerSelection}.`
+    else if (playerSelectionCapitalized === "Paper" && computerSelection === "Scissors") {
+        console.log(`You Lose! ${computerSelection} beats ${playerSelection}.`);
+        return 2;
     }
-    else if (playerSelection === "Scissors" && computerSelection === "Rock") {
-        return `You Lose! ${computerSelection} beats ${playerSelection}.`
+    else if (playerSelectionCapitalized === "Scissors" && computerSelection === "Rock") {
+        console.log(`You Lose! ${computerSelection} beats ${playerSelection}.`);
+        return 2;
     }
-    
-    return `You Win! ${playerSelection} beats ${computerSelection}`;
+    console.log(`You Win! ${playerSelectionCapitalized} beats ${computerSelection}`);
+    return 1; 
+}
+
+function game(numberOfGames) {
+    let playerScore = 0;
+    let computerScore = 0;
+    for(let i = 0; i < numberOfGames; i++) {
+        let outcome = playRound(getPlayerChoice(), getComputerChoice());
+        if (outcome === 1) {
+            playerScore++;
+        }
+        else if (outcome === 2) {
+            computerScore++;
+        }
+    }
+    console.log(`The score is:`)
+    console.log(`Player: ${playerScore}`)
+    console.log(`Computer: ${computerScore}`)
+
+    if (playerScore === computerScore) {
+        console.log(`The ${numberOfGames} round match ended in a tie!`);
+    }
+    else if (playerScore > computerScore) {
+        console.log(`Congratulation! You won the ${numberOfGames} round game!`);
+    }
+    else if (playerScore < computerScore) {
+        console.log(`Better luck next time! The computer won the ${numberOfGames} round game`);
+    }
+    return;
 }
 
 // console.log(getComputerChoice());
-const playerSelection = "rock";
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+game(5);
