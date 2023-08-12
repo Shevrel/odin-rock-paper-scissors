@@ -3,11 +3,11 @@ function getComputerChoice() {
     let computerChoice;
     switch (numberOneToThree) {
         case 1:
-            return computerChoice = "rock";
+            return computerChoice = "Rock";
         case 2:
-            return computerChoice = "paper";
+            return computerChoice = "Paper";
         case 3:
-            return computerChoice = "scissors";
+            return computerChoice = "Scissors";
         default:
             return "";
     }
@@ -19,23 +19,22 @@ function getPlayerChoice() {
         input = prompt("Your choice: Rock, Paper, Scissors").toLowerCase();
         console.log(input)
         if (input === "rock" || input === "paper" || input === "scissors") {
-            return input;
+            return input[0].toUpperCase() + input.substring(1);
         }
     }
 }
 
 function playRound(playerSelection, computerSelection) {
-    let roundOutcomeMessage;
     if (playerSelection === computerSelection) {
         return "Tie!"
     }
-    else if (playerSelection === "rock" && computerSelection === "paper") {
+    else if (playerSelection === "Rock" && computerSelection === "Paper") {
         return `You Lose! ${computerSelection} beats ${playerSelection}.`
     }
-    else if (playerSelection === "paper" && computerSelection === "scissors") {
+    else if (playerSelection === "Paper" && computerSelection === "Scissors") {
         return `You Lose! ${computerSelection} beats ${playerSelection}.`
     }
-    else if (playerSelection === "scissors" && computerSelection === "rock") {
+    else if (playerSelection === "Scissors" && computerSelection === "Rock") {
         return `You Lose! ${computerSelection} beats ${playerSelection}.`
     }
     
@@ -43,4 +42,6 @@ function playRound(playerSelection, computerSelection) {
 }
 
 // console.log(getComputerChoice());
-getPlayerChoice()
+const playerSelection = "rock";
+const computerSelection = getComputerChoice();
+console.log(playRound(playerSelection, computerSelection));
