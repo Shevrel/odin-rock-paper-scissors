@@ -1,3 +1,7 @@
+let playerScore = 0;
+let computerScore = 0;
+const WINNING_POINTS = 5;
+
 function getComputerChoice() {
     let numberOneToThree = Math.floor(Math.random() * 3 + 1)
     switch (numberOneToThree) {
@@ -25,7 +29,7 @@ function getPlayerChoice() {
 function playRound(playerSelection, computerSelection) {
     /*
     Play a round of rock paper scissors and determine a potential winner
-    return 0 if its a draw, return 1 if player wins, return 2 if the computer wins
+    return 0 if its a draw, return 1 if player wins, return 2 if computer wins
     */
     let playerSelectionCapitalized;
     playerSelectionCapitalized = playerSelection[0].toUpperCase() + playerSelection.substring(1).toLowerCase()
@@ -35,53 +39,59 @@ function playRound(playerSelection, computerSelection) {
     }
     else if (playerSelectionCapitalized === "Rock" && computerSelection === "Paper") {
         console.log(`You Lose! ${computerSelection} beats ${playerSelection}.`);
+        computerScore++;
         return 2;
     }
     else if (playerSelectionCapitalized === "Paper" && computerSelection === "Scissors") {
         console.log(`You Lose! ${computerSelection} beats ${playerSelection}.`);
+        computerScore++;
         return 2;
     }
     else if (playerSelectionCapitalized === "Scissors" && computerSelection === "Rock") {
         console.log(`You Lose! ${computerSelection} beats ${playerSelection}.`);
+        computerScore++;
         return 2;
     }
     console.log(`You Win! ${playerSelectionCapitalized} beats ${computerSelection}`);
+    playerScore++;
     return 1; 
 }
 
-function game(numberOfGames) {  
-    let playerScore = 0;
-    let computerScore = 0;
-    // for(let i = 0; i < numberOfGames; i++) {
-    //     let outcome = playRound(getPlayerChoice(), getComputerChoice());
-    //     if (outcome === 1) {
-    //         playerScore++;
-    //     }
-    //     else if (outcome === 2) {
-    //         computerScore++;
-    //     }
-    // }
-    // playRound(getPlayerChoice(), getComputerChoice());
-    console.log(`The score is:`)
-    console.log(`Player: ${playerScore}`)
-    console.log(`Computer: ${computerScore}`)
-
-    if (playerScore === computerScore) {
-        console.log(`The ${numberOfGames} round match ended in a tie!`);
+function getSingleGameResult(outcome) {
+    switch (outcome) {
+        case 0:
+            break;
+        case 1:
+            playerScore++;
+            break;
+        case 2:
+            computerScore++;
+            break;
+        default:
+            break;
     }
-    else if (playerScore > computerScore) {
-        console.log(`Congratulation! You won the ${numberOfGames} round match!`);
-    }
-    else if (playerScore < computerScore) {
-        console.log(`Better luck next time! The computer won the ${numberOfGames} round match`);
-    }
-    return;
 }
+
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
 button.addEventListener('click', () => {
-    playRound(button.id, getComputerChoice())
+    let outcome = playRound(button.id, getComputerChoice());
+    console.log(playerScore + " : " + computerScore);
+    checkWinner();
     });
 });
 
-// game(5);
+function checkWinner() {
+    if (playerScore === WINNING_POINTS) {
+        console.log("You win");
+    }
+    else if (computerScore === WINNING_POINTS) {
+        console.log("Computer wins");
+    }
+    else {
+        return;
+    }
+    buttons.forEach((button) => {
+        button.disabled = true;
+    });
+}
