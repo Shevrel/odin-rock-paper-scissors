@@ -1,6 +1,5 @@
 function getComputerChoice() {
     let numberOneToThree = Math.floor(Math.random() * 3 + 1)
-    let computerChoice;
     switch (numberOneToThree) {
         case 1:
             return computerChoice = "Rock";
@@ -50,18 +49,19 @@ function playRound(playerSelection, computerSelection) {
     return 1; 
 }
 
-function game(numberOfGames) {
+function game(numberOfGames) {  
     let playerScore = 0;
     let computerScore = 0;
-    for(let i = 0; i < numberOfGames; i++) {
-        let outcome = playRound(getPlayerChoice(), getComputerChoice());
-        if (outcome === 1) {
-            playerScore++;
-        }
-        else if (outcome === 2) {
-            computerScore++;
-        }
-    }
+    // for(let i = 0; i < numberOfGames; i++) {
+    //     let outcome = playRound(getPlayerChoice(), getComputerChoice());
+    //     if (outcome === 1) {
+    //         playerScore++;
+    //     }
+    //     else if (outcome === 2) {
+    //         computerScore++;
+    //     }
+    // }
+    // playRound(getPlayerChoice(), getComputerChoice());
     console.log(`The score is:`)
     console.log(`Player: ${playerScore}`)
     console.log(`Computer: ${computerScore}`)
@@ -70,13 +70,18 @@ function game(numberOfGames) {
         console.log(`The ${numberOfGames} round match ended in a tie!`);
     }
     else if (playerScore > computerScore) {
-        console.log(`Congratulation! You won the ${numberOfGames} round game!`);
+        console.log(`Congratulation! You won the ${numberOfGames} round match!`);
     }
     else if (playerScore < computerScore) {
-        console.log(`Better luck next time! The computer won the ${numberOfGames} round game`);
+        console.log(`Better luck next time! The computer won the ${numberOfGames} round match`);
     }
     return;
 }
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+button.addEventListener('click', () => {
+    playRound(button.id, getComputerChoice())
+    });
+});
 
-// console.log(getComputerChoice());
-game(5);
+// game(5);
