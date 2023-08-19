@@ -1,12 +1,24 @@
-button {
-    height: 75px;
-    width: 100px;
+.header {
+
 }
 
 #currentScore {
-
+    padding: 0;
+    margin-bottom: 20px;
 }
 
-/* #finalScore {
+.Choice {
+    padding: 0px;
+    margin: 0px;
+}
 
-} */
+button {
+    height: 75px;
+    width: 100px;
+    margin-bottom: 5px;
+}
+
+#finalScore {
+    font-size: 24px;
+    margin-top: 20px;
+}
